@@ -20,10 +20,10 @@ Install [MongoDB](https://docs.mongodb.com/manual/administration/install-communi
 
 1. install the dependencies using `npm install` or `npm i`
 2. Start the app using `npm run dev`
-3. After that, go to: `http://localhost:3000/v1/users` (You will be able to see all the current users. Initially you won't be seeing anything here.)
+3. After that, go to: `http://localhost:3000/v1/users` (You will be able to see all the current users. Initially you won't be seeing anything here)
 
 ### Directory Structure Currently
-
+```
 ├── src
 │   ├── apiV1
 │   │   ├── auth
