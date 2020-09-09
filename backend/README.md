@@ -7,7 +7,7 @@ Install [MongoDB](https://docs.mongodb.com/manual/administration/install-communi
 ## Features
 
 - [TypeScript](https://www.typescriptlang.org/) as language
-- ODM: [Mongoose](https://mongoosejs.com/)
+- [Mongoose](https://mongoosejs.com/) for db transactions
 - Framework: [Express.js](https://expressjs.com/)
 - Linting and formatting code using [TSLint](https://palantir.github.io/tslint/) & [Prettier](https://prettier.io/)
 - Authentication & Authorization with [JSON Web Tokens](https://jwt.io/)
