@@ -31,8 +31,10 @@ Install [MongoDB](https://docs.mongodb.com/manual/administration/install-communi
 │   │   │  └── auth.route.ts
 │   │   ├── users
 │   │   │   ├── user.controller.ts
-│   │   │   ├── user.controller.ts
 │   │   │   └── user.route.ts
+│   │   ├── game
+│   │   │   ├── game.controller.ts
+│   │   │   └── game.route.ts
 │   │   └── index.ts
 │   ├── config
 │   │   ├── config.ts
