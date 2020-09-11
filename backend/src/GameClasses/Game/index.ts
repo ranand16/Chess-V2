@@ -29,6 +29,13 @@ export default class Game {
     }
 
     /**
+     * This returns current game name
+     */
+    public getGameName = (): String => {
+        return this.gameName
+    }
+
+    /**
      * This function will be used to generate new game id s
      */
     private generateGameId = (): void => {
@@ -88,4 +95,14 @@ export default class Game {
         return this.spectators
     }
 
+    /**
+     * This returns all the players in the game right now
+     */
+    public getPlayers = (): Array<HumanPlayer> => {
+        return this.players
+    }
+
+    public getSpectators = (): Array<HumanPlayer> => {
+        return this.spectators
+    }
 }

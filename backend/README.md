@@ -2,7 +2,9 @@
 
 ## Prerequisites
 
-Install [MongoDB](https://docs.mongodb.com/manual/administration/install-community/) on your local machine or use a cloud service [mLab](https://mlab.com/).
+- Install [Node](https://nodejs.org/en/) and [npm](https://www.npmjs.com/) globally  on your pc.
+- Install [MongoDB](https://docs.mongodb.com/manual/administration/install-community/) on your local machine or use a cloud service [mLab](https://mlab.com/).
+- May or may not install [Robo3T](https://robomongo.org/) for mongo GUI.
 
 ## Features
 
@@ -11,7 +13,7 @@ Install [MongoDB](https://docs.mongodb.com/manual/administration/install-communi
 - Framework: [Express.js](https://expressjs.com/)
 - Linting and formatting code using [TSLint](https://palantir.github.io/tslint/) & [Prettier](https://prettier.io/)
 - Authentication & Authorization with [JSON Web Tokens](https://jwt.io/)
-- Easy configuration of environment variables thanks to [dotenv](https://github.com/motdotla/dotenv)
+- Configuration of environment variables: [dotenv](https://github.com/motdotla/dotenv)
 - [Morgan](https://github.com/expressjs/morgan)for logging request
 
 ## Getting Started
@@ -20,7 +22,8 @@ Install [MongoDB](https://docs.mongodb.com/manual/administration/install-communi
 
 1. install the dependencies using `npm install` or `npm i`
 2. Start the app using `npm run dev`
-3. After that, go to: `http://localhost:3000/v1/users` (You will be able to see all the current users. Initially you won't be seeing anything here)
+3. After that, go to: `http://localhost:3000/v1/{route}`
+
 
 ### Directory Structure Currently
 ```
@@ -34,11 +37,14 @@ Install [MongoDB](https://docs.mongodb.com/manual/administration/install-communi
 │   │   │   └── user.route.ts
 │   │   ├── game
 │   │   │   ├── game.controller.ts
+│   │   │   └── game.model.ts
 │   │   │   └── game.route.ts
 │   │   └── index.ts
 │   ├── config
 │   │   ├── config.ts
 │   │   └── db.ts
+│   ├── DataAccess
+│   │   ├── index.ts
 │   ├── Extensions
 │   │   ├── index.ts
 │   ├── GameClasses
