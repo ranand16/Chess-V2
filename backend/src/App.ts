@@ -1,3 +1,8 @@
+/**
+ * @author Rishabh Anand <ranand16@gmail.com>
+ * 
+ */
+
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import * as express from 'express';

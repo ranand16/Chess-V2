@@ -24,7 +24,8 @@
     "http-status": "^1.2.0",
     "jwt-then": "^1.0.1",
     "mongoose": "^5.2.15",
-    "socket.io": "^2.3.0"
+    "socket.io": "^2.3.0",
+    "uuidv4": "^6.1.0"
   },
   "devDependencies": {
     "@types/dotenv": "^4.0.3",

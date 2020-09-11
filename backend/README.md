@@ -39,6 +39,20 @@ Install [MongoDB](https://docs.mongodb.com/manual/administration/install-communi
 │   ├── config
 │   │   ├── config.ts
 │   │   └── db.ts
+│   ├── Extensions
+│   │   ├── index.ts
+│   ├── GameClasses
+│   │   ├── Enums
+│   │   │   ├── PlayerSide.ts
+│   │   │   └── PlayerType.ts
+│   │   ├── Game
+│   │   │   ├── index.ts
+│   │   ├── HumanPlayer
+│   │   │   ├── index.ts
+│   │   ├── IdGenerator
+│   │   │   ├── index.ts
+│   │   ├── Player
+│   │   │   ├── index.ts
 │   ├── helpers
 │   │   ├── errorHandler.ts
 │   │   └── verifyToken.ts

@@ -1,7 +1,10 @@
+/**
+ * @author Rishabh Anand <ranand16@gmail.com>
+ * 
+ */
+
 import { Router } from 'express'
 import GameController from './game.controller'
-import * as io from 'socket.io';
-
 
 const gameRouter: Router = Router()
 const gameController = new GameController();
