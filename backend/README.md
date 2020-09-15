@@ -48,16 +48,22 @@
 │   ├── Extensions
 │   │   ├── index.ts
 │   ├── GameClasses
+│   │   ├── Board
+│   │   │   ├── index.ts
 │   │   ├── Enums
+│   │   │   ├── PieceType.ts
 │   │   │   ├── PlayerSide.ts
 │   │   │   └── PlayerType.ts
 │   │   ├── Game
+│   │   │   ├── game.interface.ts
 │   │   │   ├── index.ts
 │   │   ├── HumanPlayer
 │   │   │   ├── index.ts
 │   │   ├── IdGenerator
 │   │   │   ├── index.ts
 │   │   ├── Player
+│   │   │   ├── index.ts
+│   │   ├── Piece
 │   │   │   ├── index.ts
 │   ├── helpers
 │   │   ├── errorHandler.ts

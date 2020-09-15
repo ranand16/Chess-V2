@@ -11,6 +11,8 @@ const GameSchema = Schema(
         },
         gameName: {
             type: String,
+            required: true,
+            unique: true,
             trim: true,
         },
         players: {

@@ -10,6 +10,7 @@ const gameRouter: Router = Router()
 const gameController = new GameController();
 
 // Host a new game
-gameRouter.post('/', gameController.hostAGame)
+gameRouter.post('/host', gameController.hostAGame)
+gameRouter.post('/join', gameController.joinGame)
 
 export default gameRouter

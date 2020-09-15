@@ -17,18 +17,20 @@ export default class GameController {
     public io: socketio; 
     public socket;
     public db: DataAccess
+    constructor() {
+        this.db = new DataAccess()
+    }
     public hostAGame = async (req: Request, res: Response): Promise<any> => {
         try {
             this.io = req.app["io"];
             this.socket = req.app["connectionSock"];
-            this.db = new DataAccess()
             const { roomName, userName } = req.body;
             console.log(roomName, userName)
             const game = new Game(roomName);
             const player1 = new HumanPlayer(PlayerSide.WHITE, PlayerType.HUMAN, userName);
             game.changeSpectatorToPlayer(player1)
             game.addPlayer(player1)
-            let newGame = await this.db.addNewGame(game)
+            let newGame = await this.db.addNewGame(game.getGame())
             this.socket.join(game.getGameId());
             return res.status(200).send({
                 success: true,
@@ -46,13 +48,27 @@ export default class GameController {
 
     public joinGame = async (req: Request, res: Response): Promise<any> => {
         try {
-            this.io = req.app["io"]
-            this.socket = req.app["connectionSock"]
-            
+            console.debug("starting joinGame")
+            this.io = req.app["io"];
+            this.socket = req.app["connectionSock"];
+            const { roomName, userName } = req.body;
+            const player2 = new HumanPlayer(PlayerSide.BLACK, PlayerType.HUMAN, userName);
+            const gameDoc = await this.db.findGameUsingName(roomName);
+            const intendedGame = new Game(roomName);
+            intendedGame.setGame(gameDoc)
+            console.log("fetchedGame : - ",intendedGame)
+            player2.setToPlayer();
+            console.log("updatedNewGame_1: - ",intendedGame)
+            intendedGame.addPlayer(player2)
+            console.log("updatedNewGame_2 : - ",intendedGame)
+            const updatedGame = await this.db.updateGame(intendedGame.getGame())
+            this.socket.join(updatedGame.gameId);
+            this.socket.broadcast.to(updatedGame.gameId).emit('updateFrontendRoomData', { room:"THis is the room id" })
+            console.log("updatedGame : - ",updatedGame)
             return res.status(200).send({
                 success: true,
-                message: "New game created!",
-                data: {  }
+                message: "you are player 2 in the game!",
+                data: updatedGame
             });
             // this.socket.broadcast.to(req.body.roomID).emit('updateFrontendRoomData', { room:"THis is the room id" })
         } catch(err) {
