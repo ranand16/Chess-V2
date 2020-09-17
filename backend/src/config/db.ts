@@ -8,7 +8,7 @@ export default (async () => {
   try {
     await mongoose.connect(
       CONFIG.DB_HOST,
-      { useNewUrlParser: true, useUnifiedTopology: true }
+      { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }
     );
     // listen for requests
     console.log('The Conection is Ok');

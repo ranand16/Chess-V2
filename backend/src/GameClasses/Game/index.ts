@@ -25,7 +25,7 @@ export default class Game {
      * 
      * @param gameName This is the new game's name
      */
-    private setGameName = (gameName: String): void => {
+    public setGameName = (gameName: String): void => {
         this.gameName = gameName
     }
 
@@ -33,55 +33,43 @@ export default class Game {
      * This returns current game name
      * @returns the game name as string
      */
-    public getGameName = (): String => {
-        return this.gameName
-    }
+    public getGameName = (): String => this.gameName
 
     /**
      * This function will be used to generate new game id s
      */
-    private setGameId = (gameId): void => {
+    public setGameId = (gameId): void => {
         this.gameId = gameId?gameId:new IdGenerator().generateNewId()
     }
 
     /**
      * This fucntion is responsible for the 
      */
-    public getGameId = (): String => {
-        return this.gameId
-    }
+    public getGameId = (): String => this.gameId
 
     /**
      * This returns all the players in the game right now
      * @returns array all players: HumanPlayer
      */
-    public getPlayers = (): Array<HumanPlayer> => {
-        return this.players
-    }
+    public getPlayers = (): Array<HumanPlayer> => this.players
 
     /**
      * This returns all the players in the game right now
      * @returns array all players: HumanPlayer
      */
-    public setPlayers = (players: Array<HumanPlayer>): Array<HumanPlayer> => {
-        return this.players = players
-    }
+    public setPlayers = (players: Array<HumanPlayer>): Array<HumanPlayer> => this.players = players
 
     /**
      * Return all the spectators in the current game
      * @returns array all players: HumanPlayer
      */
-    public getSpectators = (): Array<HumanPlayer> => {
-        return this.spectators
-    }
+    public getSpectators = (): Array<HumanPlayer> => this.spectators
 
     /**
      * This returns all the players in the game right now
      * @returns array all players: HumanPlayer
      */
-    public setSpectators = (spectators: Array<HumanPlayer>): Array<HumanPlayer> => {
-        return this.spectators = spectators
-    }
+    public setSpectators = (spectators: Array<HumanPlayer>): Array<HumanPlayer> => this.spectators = spectators
 
     /**
      * 
@@ -134,11 +122,11 @@ export default class Game {
     /**
      * This function is to create new game using the db data
      * 
-     * @param game - This is a game document from db
+     * @param gameDoc - This is a game document from db
      * @returns a Game object
      */
-    setGame = (game): Game => {
-        const { players, spectators, gameId, gameName } = game
+    public setGame = (gameDoc): Game => {
+        const { players, spectators, gameId, gameName } = gameDoc
         this.setPlayers(players)
         this.setSpectators(spectators)
         this.setGameId(gameId)
@@ -150,14 +138,12 @@ export default class Game {
      * This function will return the variables in the current game to be saved in db
      * @returns all the vlariables in this game
      */
-    getGame = (): GameParams => {
-        return {
+    public getGame = (): GameParams => ({
             gameId: this.gameId,
             gameName: this.gameName,
             players: this.players,
             spectators: this.spectators
-        }
-    }
+    })
 
     /**
      * This function will be used to reset the current game

@@ -17,8 +17,12 @@ export default class DataAccess {
             players: newGameParams.players,
             spectators: newGameParams.spectators
         })
-        let saveNewGame = await game.save()
-        if(!saveNewGame) throw new Error("Failed to save new game in database!")
+        let saveNewGame = null
+        try {
+            saveNewGame = await game.save()
+        } catch(err) {
+            return err
+        }
         return saveNewGame
     }
 
@@ -32,15 +36,7 @@ export default class DataAccess {
     }
 
     public updateGame = async (game: GameParams): Promise<GameParams> => {
-        console.log("game object before update")
-        console.log(game)
-        // const gameUpdated = await GameSchema.findByIdAndUpdate(game.gameId, game);
         const gameUpdated = await GameSchema.findOneAndUpdate({gameId: game.gameId}, game)
-        console.log("game object after update")
-        console.log(gameUpdated)
         return gameUpdated
     }
 }
-
-
-

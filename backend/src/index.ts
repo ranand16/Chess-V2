@@ -10,14 +10,14 @@ import './config/db';
 
 const PORT = CONFIG.PORT;
 
+app.server.listen(PORT, ():void => {
+  console.log(`Server is listening on ${PORT}`);
+});
+
 app.io.on('connection', (socket)=>{
   console.log("someone joined now")
-  app.express["connectionSock"] = socket // attach socket in app itself
+  app.express["connectionSock"] = socket
   socket.on('disconnect', ()=>{
     console.log("Someone disconnected from the room");
   });
 })
-
-app.server.listen(PORT, ():void => {
-  console.log(`Server is listening on ${PORT}`);
-});

@@ -22,16 +22,16 @@ export default class GameController {
     }
     public hostAGame = async (req: Request, res: Response): Promise<any> => {
         try {
-            this.io = req.app["io"];
-            this.socket = req.app["connectionSock"];
-            const { roomName, userName } = req.body;
+            this.io = req.app.get("io")
+            this.socket = req.app["connectionSock"]
+            const { roomName, userName } = req.body
             console.log(roomName, userName)
-            const game = new Game(roomName);
-            const player1 = new HumanPlayer(PlayerSide.WHITE, PlayerType.HUMAN, userName);
-            game.changeSpectatorToPlayer(player1)
-            game.addPlayer(player1)
+            const game = new Game(roomName)
+            const player1 = new HumanPlayer(PlayerType.HUMAN, userName)
+            game.addSpectator(player1)
             let newGame = await this.db.addNewGame(game.getGame())
-            this.socket.join(game.getGameId());
+            this.socket.join(game.getGameId())
+            console.log("THis is the new room id ", game.getGameId())
             return res.status(200).send({
                 success: true,
                 message: "New game created!",
@@ -40,8 +40,9 @@ export default class GameController {
         } catch(err) {
             res.status(500).send({
                 success: false,
-                message: err.toString(),
-                data: null
+                message: err.message,
+                stack: err.stack,
+                data: err
             });
         }
     };
@@ -49,33 +50,29 @@ export default class GameController {
     public joinGame = async (req: Request, res: Response): Promise<any> => {
         try {
             console.debug("starting joinGame")
-            this.io = req.app["io"];
-            this.socket = req.app["connectionSock"];
+            this.io = req.app.get("io");
+            this.socket = req.app["connectionSock"]
             const { roomName, userName } = req.body;
-            const player2 = new HumanPlayer(PlayerSide.BLACK, PlayerType.HUMAN, userName);
+            const player2 = new HumanPlayer(PlayerType.HUMAN, userName);
             const gameDoc = await this.db.findGameUsingName(roomName);
             const intendedGame = new Game(roomName);
             intendedGame.setGame(gameDoc)
-            console.log("fetchedGame : - ",intendedGame)
-            player2.setToPlayer();
-            console.log("updatedNewGame_1: - ",intendedGame)
-            intendedGame.addPlayer(player2)
-            console.log("updatedNewGame_2 : - ",intendedGame)
+            intendedGame.addSpectator(player2)
             const updatedGame = await this.db.updateGame(intendedGame.getGame())
             this.socket.join(updatedGame.gameId);
-            this.socket.broadcast.to(updatedGame.gameId).emit('updateFrontendRoomData', { room:"THis is the room id" })
-            console.log("updatedGame : - ",updatedGame)
+            console.log("Joined room id ", updatedGame.gameId)
+            this.io.to(updatedGame.gameId).emit('updateFrontendRoomData', { room: "someone joined this room" })
             return res.status(200).send({
                 success: true,
-                message: "you are player 2 in the game!",
+                message: "you are added as spectator in the game!",
                 data: updatedGame
             });
-            // this.socket.broadcast.to(req.body.roomID).emit('updateFrontendRoomData', { room:"THis is the room id" })
         } catch(err) {
             res.status(500).send({
                 success: false,
-                message: err.toString(),
-                data: null
+                message: err.message,
+                stack: err.stack,
+                data: err
             })
         }
     }

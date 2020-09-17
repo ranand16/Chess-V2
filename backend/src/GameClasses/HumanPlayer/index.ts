@@ -7,7 +7,7 @@ import { PlayerSide } from "../Enums/PlayerSide";
 import { PlayerType } from "../Enums/PlayerType";
 
 export default class HumanPlayer extends Player {
-    constructor(playerSide: PlayerSide, playerType: PlayerType, playerName: String) {
+    constructor(playerType: PlayerType, playerName: String, playerSide?: PlayerSide, ) {
         super();
         this.setPlayerSide(playerSide)
         this.setPlayerType(playerType)

@@ -9,7 +9,7 @@ import IdGenerator from "../IdGenerator"
 
 export default abstract class Player {
     protected playerType: PlayerType // A player can be a bot or a human being. As of version 1, only Human
-    protected playerSide: PlayerSide // Each player will have a side, WHITE or BLACK
+    protected playerSide?: PlayerSide // Each player will have a side, WHITE or BLACK
     protected isSpectator: Boolean // Each player joins as a spectator by default
     protected playerName: String // Each player would have a name given by him or for a bot it will be auto generated
     protected playerId: String // Each player will be assigned a playerId 
@@ -17,10 +17,8 @@ export default abstract class Player {
 
     constructor() {
         this.playerType = PlayerType.HUMAN // default
-        this.playerSide = PlayerSide.WHITE // default
         this.isSpectator = true // default
         this.idGenerator = new IdGenerator()
-        console.log(this.idGenerator, "Player")
         this.playerId = this.idGenerator.generateNewId()
     }
 

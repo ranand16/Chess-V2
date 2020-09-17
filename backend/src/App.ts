@@ -21,8 +21,8 @@ class App {
     this.express = express();
     this.server = http.createServer(this.express);
     this.io = socketio(this.server)
-    this.setMiddlewares();
     this.setSocketConnection()
+    this.setMiddlewares();
     this.setRoutes();
     this.catchErrors();
   }
@@ -36,12 +36,14 @@ class App {
   }
 
   private setSocketConnection(): void {
-    this.express["io"] = this.io // attach io in app itself
+    // this.express["io"] = this.io // attach io in app itself
     // ----------------- OR -----------------
     // this.express.use((req,res,next)=>{ // pass IO in request
     //   req["io"] = this.io
     //   next();
     // })
+    // ----------------- OR -----------------
+    this.express.set("io", this.io)
   }
 
   private setRoutes(): void {
