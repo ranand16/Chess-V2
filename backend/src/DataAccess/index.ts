@@ -18,11 +18,7 @@ export default class DataAccess {
             spectators: newGameParams.spectators
         })
         let saveNewGame = null
-        try {
-            saveNewGame = await game.save()
-        } catch(err) {
-            return err
-        }
+        saveNewGame = await game.save()
         return saveNewGame
     }
 

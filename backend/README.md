@@ -28,7 +28,7 @@
 ### Directory Structure Currently
 ```
 ├── src
-│   ├── apiV1
+│   ├── apiV1 - NOT IN USE CURRENTLY
 │   │   ├── auth
 │   │   │  ├── auth.controller.ts
 │   │   │  └── auth.route.ts

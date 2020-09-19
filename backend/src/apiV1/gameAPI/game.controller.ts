@@ -8,7 +8,6 @@ import * as express from 'express';
 import * as socketio from 'socket.io';
 import Game from '../../GameClasses/Game';
 import HumanPlayer from '../../GameClasses/HumanPlayer';
-import { PlayerSide } from '../../GameClasses/Enums/PlayerSide';
 import { PlayerType } from '../../GameClasses/Enums/PlayerType';
 import DataAccess from '../../DataAccess';
 
@@ -29,9 +28,14 @@ export default class GameController {
             const game = new Game(roomName)
             const player1 = new HumanPlayer(PlayerType.HUMAN, userName)
             game.addSpectator(player1)
+            console.log("THis is the new room id 1", game.getGameId())
             let newGame = await this.db.addNewGame(game.getGame())
+            // this.socket.join(game.getGameId())
+            console.log(newGame)
+            console.log("THis is the new room id 2", game.getGameId())
             this.socket.join(game.getGameId())
-            console.log("THis is the new room id ", game.getGameId())
+            // console.log(this.io.sockets.in(game.getGameId()).join(game.getGameId()))
+            console.log("THis is the new room id 3", game.getGameId())
             return res.status(200).send({
                 success: true,
                 message: "New game created!",
@@ -59,8 +63,11 @@ export default class GameController {
             intendedGame.setGame(gameDoc)
             intendedGame.addSpectator(player2)
             const updatedGame = await this.db.updateGame(intendedGame.getGame())
-            this.socket.join(updatedGame.gameId);
-            console.log("Joined room id ", updatedGame.gameId)
+            // this.socket.join(updatedGame.gameId);
+            console.log("Joined room id 1", updatedGame.gameId)
+            this.socket.join(updatedGame.gameId)
+            console.log("Joined room id 2", updatedGame.gameId)
+            // this.io.to(updatedGame.gameId).emit('updateFrontendRoomData', { room: "someone joined this room" })
             this.io.to(updatedGame.gameId).emit('updateFrontendRoomData', { room: "someone joined this room" })
             return res.status(200).send({
                 success: true,
