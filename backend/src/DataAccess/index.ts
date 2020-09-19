@@ -24,15 +24,19 @@ export default class DataAccess {
 
     /**
      * 
-     * @param gameName Game id of the game to be searched
+     * @param gameName Game name of the game to be searched
      */
-    public findGameUsingName = async (gameName: String): Promise<GameParams> => {
-        const game = await GameSchema.findOne({ gameName });
-        return game
-    }
+    public findGameUsingName = async (gameName: String): Promise<GameParams> => await GameSchema.findOne({ gameName });
 
-    public updateGame = async (game: GameParams): Promise<GameParams> => {
-        const gameUpdated = await GameSchema.findOneAndUpdate({gameId: game.gameId}, game)
-        return gameUpdated
-    }
+    /**
+     * 
+     * @param gameId Game id of the game to be searched
+     */
+    public findGameUsingId = async (gameId: String): Promise<GameParams> => await GameSchema.findOne({ gameId });
+
+    /**
+     * 
+     * @param game contains all the variables in the Game object
+     */
+    public updateGame = async (game: GameParams): Promise<GameParams> => await GameSchema.findOneAndUpdate({gameId: game.gameId}, game)
 }

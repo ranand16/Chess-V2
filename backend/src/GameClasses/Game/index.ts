@@ -13,6 +13,7 @@ export default class Game {
     private spectators: Array<HumanPlayer>
     private gameId: String
     private gameName: String
+    private gameChance: String
     // private gameParams: GameParams
     constructor(gameName: String) {
         this.players = []
@@ -94,12 +95,8 @@ export default class Game {
      * @param player Add this player to the game
      */
     public addPlayer = (player: HumanPlayer): void => {
-        console.log(player)
         try{
             if(this.players.length>=2) return 
-            // check if there is a player already
-            if(!this.players.length) player.setPlayerSide(PlayerSide.WHITE) // this is not required because by default a player is assigned WHITE side
-            else player.setPlayerSide(PlayerSide.BLACK)
             this.players.push(player)
         } catch (e){
             console.log(e)
@@ -117,6 +114,23 @@ export default class Game {
         // this.spectators.removeIf((each, i) => each["spectatorId"] === spectatorId )
         console.log(this.spectators)
         return this.spectators
+    }
+
+    /**
+     * Start the game now
+     */
+    public startGame = () => {
+        this.resetGame()
+        this.changeGameChance()
+    }
+
+    /**
+     * this function will give chance to the white player if no one has the chance or chnage the chance
+     */
+    public changeGameChance = () => {
+        if(!this.gameChance) this.gameChance = "WHITE"
+        if(this.gameChance && this.gameChance === "WHITE") this.gameChance = "BLACK"
+        else if(this.gameChance && this.gameChance === "BLACK") this.gameChance = "WHITE"
     }
 
     /**
