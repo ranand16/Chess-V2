@@ -8,12 +8,12 @@ import { PlayerType } from "../Enums/PlayerType"
 import IdGenerator from "../IdGenerator"
 
 export default abstract class Player {
-    protected playerType: PlayerType // A player can be a bot or a human being. As of version 1, only Human
-    protected playerSide?: PlayerSide // Each player will have a side, WHITE or BLACK
-    protected isSpectator: Boolean // Each player joins as a spectator by default
-    protected playerName: String // Each player would have a name given by him or for a bot it will be auto generated
-    protected playerId: String // Each player will be assigned a playerId 
-    protected idGenerator: IdGenerator
+    public playerType: PlayerType // A player can be a bot or a human being. As of version 1, only Human
+    public playerSide?: PlayerSide // Each player will have a side, WHITE or BLACK
+    public isSpectator: Boolean // Each player joins as a spectator by default
+    public playerName: String // Each player would have a name given by him or for a bot it will be auto generated
+    public playerId: String // Each player will be assigned a playerId 
+    public idGenerator: IdGenerator
 
     constructor() {
         this.playerType = PlayerType.HUMAN // default
@@ -25,23 +25,33 @@ export default abstract class Player {
     /**
      * This function returns current player id
      */
-    getPlayerId = (): String => {
-        return this.playerId
-    }
+    public getPlayerId = (): String => this.playerId
 
     /**
      * get player's current side 'WHITE' / 'BLACK'
      */
-    public getPlayerSide = (): PlayerSide  =>{
-        return this.playerSide
-    }
+    public getPlayerSide = (): PlayerSide => this.playerSide
 
     /**
      * get player's current type 'BOT' / 'HUMAN'
      */
-    public getPlayerType = (): PlayerType  =>{
-        return this.playerType
-    }
+    public getPlayerType = (): PlayerType => this.playerType
+
+    /**
+     * get player's name
+     */
+    public getPlayerName = (): String => this.playerName
+
+    /**
+     * get if player is spectating or playing
+     */
+    public getPlayerPlayStatus = (): Boolean => this.isSpectator
+
+    /**
+     * 
+     * @param playerId new player id
+     */
+    public setPlayerId = (playerId: String) => this.playerId = playerId
 
     /**
      * 
@@ -57,8 +67,7 @@ export default abstract class Player {
      * @param playerSide Set current player's side to playerSide
      */
     public setPlayerSide = (playerSide: PlayerSide): void => { 
-        if(playerSide === PlayerSide.BLACK) this.playerSide = PlayerSide.BLACK
-        if(playerSide === PlayerSide.WHITE) this.playerSide = PlayerSide.WHITE
+        this.playerSide = playerSide
     } 
 
     /**
@@ -71,8 +80,14 @@ export default abstract class Player {
         }
         return false
     }
+    /**
+     * set value of isSpectator
+     */
+    public setPlayerPlayStatus = (isSpec): Boolean => this.isSpectator = isSpec
 
-    public setPlayerName = (playerName: String): String => {
-        return this.playerName = playerName
-    }
+    /**
+     * 
+     * @param playerName new player name
+     */
+    public setPlayerName = (playerName: String): String => this.playerName = playerName
 }

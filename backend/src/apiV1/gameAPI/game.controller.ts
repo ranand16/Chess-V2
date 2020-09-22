@@ -26,7 +26,7 @@ export default class GameController {
             const { roomName, userName } = req.body
             console.log(roomName, userName)
             const game = new Game(roomName)
-            const player1 = new HumanPlayer(PlayerType.HUMAN, userName)
+            const player1 = new HumanPlayer(userName)
             game.addSpectator(player1)
             console.log("THis is the new room id 1", game.getGameId())
             let newGame = await this.db.addNewGame(game.getGame())
@@ -57,7 +57,7 @@ export default class GameController {
             this.io = req.app.get("io");
             this.socket = req.app["connectionSock"]
             const { roomName, userName } = req.body;
-            const player2 = new HumanPlayer(PlayerType.HUMAN, userName);
+            const player2 = new HumanPlayer(userName);
             const gameDoc = await this.db.findGameUsingName(roomName);
             const intendedGame = new Game(roomName);
             intendedGame.setGame(gameDoc)

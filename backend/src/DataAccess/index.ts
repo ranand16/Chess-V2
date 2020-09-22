@@ -15,7 +15,9 @@ export default class DataAccess {
             gameId: newGameParams.gameId,
             gameName: newGameParams.gameName,
             players: newGameParams.players,
-            spectators: newGameParams.spectators
+            spectators: newGameParams.spectators,
+            gameChance: newGameParams.gameChance,
+            boardData: newGameParams.boardData
         })
         let saveNewGame = null
         saveNewGame = await game.save()

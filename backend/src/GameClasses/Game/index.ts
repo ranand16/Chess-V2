@@ -5,21 +5,24 @@
 
 import IdGenerator from "../IdGenerator"
 import HumanPlayer from "../HumanPlayer"
-import { PlayerSide } from "../Enums/PlayerSide"
 import GameParams from "./game.interface"
+import PlayerParams from "../Player/player.interface"
+import Board from "../Board"
+import { PlayerSide } from "../Enums/PlayerSide"
 
 export default class Game {
+    private gameName: String
+    private gameId: String
     private players: Array<HumanPlayer>
     private spectators: Array<HumanPlayer>
-    private gameId: String
-    private gameName: String
     private gameChance: String
-    // private gameParams: GameParams
+    private board: Board
     constructor(gameName: String) {
         this.players = []
         this.spectators = []
         this.setGameId(null)
         this.setGameName(gameName)
+        this.board = new Board()
     }
 
     /**
@@ -73,12 +76,33 @@ export default class Game {
     public setSpectators = (spectators: Array<HumanPlayer>): Array<HumanPlayer> => this.spectators = spectators
 
     /**
+     * return current chance
+     */
+    public getChance = (): String => this.gameChance
+
+    /**
+     * 
+     * @param chance set game chance to chance
+     */
+    public setChance = (chance: String): String => this.gameChance = chance
+
+    /**
+     * get the board data
+     */
+    public getBoard = (): Array<Array<String>> => this.board.getBoard()
+
+    /**
+     * 
+     * @param board new board data
+     */
+    public setBoard = (board: Array<Array<String>>): Array<Array<String>> => this.board.setBoard(board)
+
+    /**
      * 
      * @param spectator Add this spectator to this game
+     * returns number of spectators in the current game
      */
-    public addSpectator = (spectator: HumanPlayer): void => {
-        this.spectators.push(spectator)
-    }
+    public addSpectator = (spectator: HumanPlayer): Number => this.spectators.push(spectator)
 
     /**
      * 
@@ -112,7 +136,6 @@ export default class Game {
     public removeSpectator = (spectatorId: String): Array<HumanPlayer> => {
         console.log(this.spectators)
         // this.spectators.removeIf((each, i) => each["spectatorId"] === spectatorId )
-        console.log(this.spectators)
         return this.spectators
     }
 
@@ -140,11 +163,25 @@ export default class Game {
      * @returns a Game object
      */
     public setGame = (gameDoc): Game => {
-        const { players, spectators, gameId, gameName } = gameDoc
+        const { players: playersDoc, spectators: spectatorsDoc, gameId, gameName, boardData, gameChance } = gameDoc
+        const players: Array<HumanPlayer> = new Array()
+        const spectators: Array<HumanPlayer> = new Array()
+        playersDoc.forEach((playerDoc: PlayerParams) =>{ 
+            const newPlayer = new HumanPlayer(playerDoc.playerName, playerDoc.playerSide)
+            newPlayer.setPlayer(playerDoc)
+            players.push(newPlayer)
+        });
+        spectatorsDoc.forEach((spectatorDoc: PlayerParams) =>{ 
+            const newPlayer = new HumanPlayer(spectatorDoc.playerName, spectatorDoc.playerSide)
+            newPlayer.setPlayer(spectatorDoc)
+            spectators.push(newPlayer)
+        });
         this.setPlayers(players)
         this.setSpectators(spectators)
         this.setGameId(gameId)
         this.setGameName(gameName)
+        this.setChance(gameChance)
+        this.setBoard(boardData)
         return this
     }
 
@@ -152,12 +189,20 @@ export default class Game {
      * This function will return the variables in the current game to be saved in db
      * @returns all the vlariables in this game
      */
-    public getGame = (): GameParams => ({
+    public getGame = (): GameParams => {
+        const playersDocs: Array<PlayerParams> = new Array()
+        const spectatorDocs: Array<PlayerParams> = new Array()
+        this.players.forEach((player) => playersDocs.push(player.getPlayer()))
+        this.spectators.forEach((spectator) => spectatorDocs.push(spectator.getPlayer()))
+        return {
             gameId: this.gameId,
             gameName: this.gameName,
-            players: this.players,
-            spectators: this.spectators
-    })
+            gameChance: this.gameChance,
+            players: playersDocs,
+            spectators: spectatorDocs,
+            boardData: this.board.getBoard()
+        }
+    }
 
     /**
      * This function will be used to reset the current game

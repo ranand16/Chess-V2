@@ -5,28 +5,24 @@
 import { PlayerSide } from "../Enums/PlayerSide";
 import { PieceType } from "../Enums/PieceType";
 
-export default class Piece {
+export default abstract class Piece {
     private pieceColor: PlayerSide
     private pieceType: PieceType
-    constructor(pType: PieceType, color: PlayerSide){
-        this.setPieceType(pType)
-        this.setPieceSide(color)
+    constructor(pieceType: PieceType, pieceColor: PlayerSide){
+        this.setPieceType(pieceType)
+        this.setPieceSide(pieceColor)
     }
 
     /**
      * 
-     * @param pType Type of piece 
+     * @param pieceType Type of piece 
      */
-    private setPieceType = (pType: PieceType): void => {
-        this.pieceType = pType
-    }
+    private setPieceType = (pieceType: PieceType): PieceType => this.pieceType = pieceType
 
     /**
      * 
-     * @param pColor Color of piece
+     * @param pieceColor Color of piece
      */
-    private setPieceSide = (pColor: PlayerSide): void => {
-        this.pieceColor = pColor
-    }
+    private setPieceSide = (pieceColor: PlayerSide): PlayerSide => this.pieceColor = pieceColor
 
 }

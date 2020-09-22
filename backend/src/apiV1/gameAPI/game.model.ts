@@ -20,6 +20,13 @@ const GameSchema = Schema(
         },
         spectators: {
             type: Array
+        },
+        gameChance: {
+            type: String
+        },
+        boardData: {
+            type: Array,
+            required: true
         }
     },
     {
