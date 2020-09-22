@@ -3,13 +3,13 @@
  */
 
 import Piece from "../Piece";
-
+import SpotParams from "./spot.interface";
 
 export default class Spot {
     private piece: Piece
-    private x: Number
-    private y: Number
-    constructor(x: Number, y: Number, piece: Piece) {
+    private x: number
+    private y: number
+    constructor(x: number, y: number, piece?: Piece) {
         this.setPiece(piece)
         this.setX(x)
         this.setY(y)
@@ -25,19 +25,32 @@ export default class Spot {
      * 
      * @param x set x for this spot
      */
-    public setX = (x: Number): Number => this.x = x
+    private setX = (x: number): number => this.x = x
 
     /**
      * 
      * @param y set y for this spot
      */
-    public setY = (y: Number): Number => this.y = y
+    private setY = (y: number): number => this.y = y
 
-    public getSpot = () => ({
+    /**
+     * get the spot details to be stored in db
+     */
+    public getSpot = (): SpotParams => ({
         piece: this.piece,
         x: this.x,
         y: this.y
     })
+
+    /**
+     * 
+     * @param spot spot to be set
+     */
+    public setSpot = (spot: Spot) => {
+        this.setX(spot.x)
+        this.setX(spot.y)
+        this.setPiece(spot.piece)
+    }
 
     /**
      * get the piece
@@ -47,11 +60,10 @@ export default class Spot {
     /**
      * get x
      */
-    public getX = (): Number => this.x
+    public getX = (): number => this.x
 
     /**
      * get y
      */
-    public getY = (): Number => this.y
-
+    public getY = (): number => this.y
 }

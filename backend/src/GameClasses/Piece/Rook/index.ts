@@ -6,8 +6,8 @@ import Piece from "..";
 import { PieceType } from "../../Enums/PieceType";
 import { PlayerSide } from "../../Enums/PlayerSide";
 
-export default class Knight extends Piece {
+export default class Rook extends Piece {
     constructor(playerSide: PlayerSide) {
-        super(PieceType.KNIGHT, playerSide)
+        super(PieceType.ROOK, playerSide)
     }
 }

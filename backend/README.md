@@ -63,8 +63,25 @@
 │   │   │   ├── index.ts
 │   │   ├── Player
 │   │   │   ├── index.ts
+│   │   │   ├── player.interface.ts
 │   │   ├── Piece
 │   │   │   ├── index.ts
+│   │   │   ├── pieceparams.interface.ts
+|   |   |   ├── Bishop
+│   │   │   |   └── index.ts
+|   |   |   ├── King
+│   │   │   |   └── index.ts
+|   |   |   ├── Knight
+│   │   │   |   └── index.ts
+|   |   |   ├── Pawn
+│   │   │   |   └── index.ts
+|   |   |   ├── Queen
+│   │   │   |   └── index.ts
+|   |   |   ├── Rook
+│   │   │       └── index.ts
+│   │   ├── Spot
+│   │   │   ├── index.ts
+│   │   │   └── spot.interface.ts
 │   ├── helpers
 │   │   ├── errorHandler.ts
 │   │   └── verifyToken.ts
