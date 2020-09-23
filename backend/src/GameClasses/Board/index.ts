@@ -10,7 +10,6 @@ import Rook from "../Piece/Rook";
 import Spot from "../Spot";
 
 export default class Board {
-    // private boardData: Array<Array<Spot>>
     private boardData: Array<Array<Spot>>
     constructor() {
         this.createBoard()
@@ -31,13 +30,14 @@ export default class Board {
     ]
     
     /**
-     * get board data
+     * get board data to be sent to frontend or saved to db
      */
     public getBoard = (): Array<Array<PieceParams>> => {
-        let boardData: Array<Array<PieceParams>>
+        let boardData: Array<Array<PieceParams>> = [[],[],[],[],[],[],[],[]]
+        console.log(boardData)
         this.boardData.map((row, i)=> {
             row.map((spot, j)=>{
-                boardData[i][j] = spot.getSpot().piece.getPiece()
+                boardData[i][j] = spot.getSpot().piece?spot.getSpot().piece.getPiece():{ pieceType: null, pieceColor: null, isAvailable: false }
             })
         })
         return boardData

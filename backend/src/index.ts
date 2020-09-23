@@ -41,7 +41,8 @@ app.io.on('connection', (socket)=>{
 				app.io.to(game.getGameId()).emit('updateState', game.getGame())
 			} else if(!gameParams && type==="host") { // A new room is going to be created
 				console.log("2. no gameParams and host")
-				const spectatorNumb = game.addSpectator(user)
+				game.addSpectator(user)
+				console.log(game.getGame())
 				let savedGame = await db.addNewGame(game.getGame())
 				if(!savedGame) throw { status: false, data: "Could not create game!" }
 			} else if(gameParams && type==="host") {
@@ -51,8 +52,9 @@ app.io.on('connection', (socket)=>{
 			response["data"] = { game: game.getGame(), user }
 			callback(response)
 		} catch(err) {
+			console.log(err.stack)
 			response["status"] = false
-			response["data"] = err["data"] || "There was some kind of error."
+			response["data"] = err["data"] || "There was some kind of error."			
 			callback(response)
 		}
 	});

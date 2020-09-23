@@ -22,7 +22,9 @@
 
 1. install the dependencies using `npm install` or `npm i`
 2. Start the app using `npm run dev`
-3. After that, go to: `http://localhost:3000/v1/{route}`
+3. After that, go to: `http://localhost:3000/v1/{route}` - NOT IN USE CURRENTLY
+4. Emit to sockt server 
+    - 
 
 
 ### Directory Structure Currently

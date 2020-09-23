@@ -8,7 +8,7 @@ import HumanPlayer from "../HumanPlayer"
 import GameParams from "./game.interface"
 import PlayerParams from "../Player/player.interface"
 import Board from "../Board"
-import { PlayerSide } from "../Enums/PlayerSide"
+import PieceParams from "../Piece/pieceparams.interface"
 
 export default class Game {
     private gameName: String
@@ -89,20 +89,20 @@ export default class Game {
     /**
      * get the board data
      */
-    public getBoard = (): Array<Array<String>> => this.board.getBoard()
+    public getBoard = (): Array<Array<PieceParams>> => this.board.getBoard()
 
     /**
      * 
      * @param board new board data
      */
-    public setBoard = (board: Array<Array<String>>): Array<Array<String>> => this.board.setBoard(board)
+    public setBoard = (board: Array<Array<PieceParams>>) => this.board.setBoard(board)
 
     /**
      * 
      * @param spectator Add this spectator to this game
      * returns number of spectators in the current game
      */
-    public addSpectator = (spectator: HumanPlayer): Number => this.spectators.push(spectator)
+    public addSpectator = (spectator: HumanPlayer): number => this.spectators.push(spectator)
 
     /**
      * 
