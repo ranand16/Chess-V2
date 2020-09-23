@@ -42,7 +42,6 @@ app.io.on('connection', (socket)=>{
 			} else if(!gameParams && type==="host") { // A new room is going to be created
 				console.log("2. no gameParams and host")
 				game.addSpectator(user)
-				console.log(game.getGame())
 				let savedGame = await db.addNewGame(game.getGame())
 				if(!savedGame) throw { status: false, data: "Could not create game!" }
 			} else if(gameParams && type==="host") {
@@ -84,7 +83,7 @@ app.io.on('connection', (socket)=>{
 			game.addPlayer(user)
 			let updateRoomData = db.updateGame(game.getGame())
 			if(!updateRoomData) throw { data: "Was not able to update game data in database!" }
-            socket.broadcast.to(game.getGameId()).emit('updateFrontendRoomData', { game: game.getGame() })
+            app.io.to(game.getGameId()).emit('updateFrontendRoomData', { game: game.getGame() })
             response["data"] = { game: game.getGame() }
             callback(response)
         } catch(err) {

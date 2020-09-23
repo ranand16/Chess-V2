@@ -34,7 +34,6 @@ export default class Board {
      */
     public getBoard = (): Array<Array<PieceParams>> => {
         let boardData: Array<Array<PieceParams>> = [[],[],[],[],[],[],[],[]]
-        console.log(boardData)
         this.boardData.map((row, i)=> {
             row.map((spot, j)=>{
                 boardData[i][j] = spot.getSpot().piece?spot.getSpot().piece.getPiece():{ pieceType: null, pieceColor: null, isAvailable: false }

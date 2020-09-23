@@ -9,6 +9,7 @@ import GameParams from "./game.interface"
 import PlayerParams from "../Player/player.interface"
 import Board from "../Board"
 import PieceParams from "../Piece/pieceparams.interface"
+import { PlayerSide } from "../Enums/PlayerSide"
 
 export default class Game {
     private gameName: String
@@ -18,7 +19,7 @@ export default class Game {
     private gameChance: String
     private board: Board
     constructor(gameName: String) {
-        this.players = []
+        this.players = [null, null]
         this.spectators = []
         this.setGameId(null)
         this.setGameName(gameName)
@@ -121,7 +122,8 @@ export default class Game {
     public addPlayer = (player: HumanPlayer): void => {
         try{
             if(this.players.length>=2) return 
-            this.players.push(player)
+            if(player.getPlayerSide() === PlayerSide.WHITE) this.players[1] = player
+            else if(player.getPlayerSide() === PlayerSide.BLACK) this.players[0] = player
         } catch (e){
             console.log(e)
             return e
