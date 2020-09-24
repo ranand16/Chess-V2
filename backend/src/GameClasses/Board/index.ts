@@ -75,4 +75,17 @@ export default class Board {
             })
         })
     }
+
+    /**
+     * @return array of objects having probable destinations for a each piece on the board
+     */
+    public getProbableDestinations = (): Array<Array<Object>> => {
+        let probableDestinations: Array<Array<Object>> = [[],[],[],[],[],[],[],[]]
+        this.boardData.forEach((rData,i)=>{
+            rData.forEach((cData,j)=>{
+                probableDestinations[i][j] = cData.getPiece()?cData.getPiece().calculateMovePositions(this, cData, cData.getPiece().getPieceSide()):""
+            })
+        })
+        return probableDestinations
+    }
 }

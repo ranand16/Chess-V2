@@ -13,9 +13,9 @@ export default class Pawn extends Piece{
         super(PieceType.PAWN, playerside)
     } 
 
-    public calculateMovePositions = (board: Board, spot: Spot, playerSide: PlayerSide) => {
+    public calculateMovePositions = (board: Board, spot: Spot, playerSide: PlayerSide): Array<Object> => {
         const boardData = board.getBoard()
-        let hightlightArray: Array<Object>
+        let hightlightArray: Array<Object> = []
         const index = spot.getX()
         const jindex = spot.getY()
         if(playerSide === PlayerSide.BLACK){ // dark
@@ -33,5 +33,6 @@ export default class Pawn extends Piece{
             if(index-1>=0 && jindex+1<=7 && (boardData[index-1][jindex+1]).isAvailable && (boardData[index-1][jindex+1]).pieceColor !== PlayerSide.WHITE) hightlightArray.push({ x:index-1, y:jindex+1, enemyCell: true })
             if(index-1>=0 && jindex-1>=0 && (boardData[index-1][jindex-1]).isAvailable && (boardData[index-1][jindex-1]).pieceColor !== PlayerSide.WHITE) hightlightArray.push({ x:index-1, y:jindex-1, enemyCell: true })
         }
+        return hightlightArray
     }
 }

@@ -5,6 +5,8 @@
 import { PlayerSide } from "../Enums/PlayerSide";
 import { PieceType } from "../Enums/PieceType";
 import PieceParams from "./pieceparams.interface";
+import Spot from "../Spot";
+import Board from "../Board";
 
 export default abstract class Piece {
     private pieceColor: PlayerSide
@@ -21,6 +23,12 @@ export default abstract class Piece {
      * @param pieceType Type of piece 
      */
     public setPieceType = (pieceType: PieceType): PieceType => this.pieceType = pieceType
+
+    /**
+     * 
+     * @returns color of the player
+     */
+    public getPieceSide = (): PlayerSide => this.pieceColor
 
     /**
      * 
@@ -56,7 +64,5 @@ export default abstract class Piece {
     /**
      * For any specific piece all the positions where the piece can move  
      */
-    // public abstract calculateMovePositions = (): Array<Spot> => {
-    //     return 
-    // }
+    public abstract calculateMovePositions(board: Board, spot: Spot, playerSide: PlayerSide): Array<Object>
 }

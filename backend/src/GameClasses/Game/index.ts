@@ -19,7 +19,7 @@ export default class Game {
     private gameChance: String
     private board: Board
     constructor(gameName: String) {
-        this.players = [null, null]
+        this.players = []
         this.spectators = []
         this.setGameId(null)
         this.setGameName(gameName)
@@ -88,15 +88,25 @@ export default class Game {
     public setChance = (chance: String): String => this.gameChance = chance
 
     /**
+     * @returns current board
+     */
+    public getBoard = (): Board => this.board
+
+    /**
+     * @returns currently set board
+     */
+    public setBoard = (board: Board): Board => this.board = board
+
+    /**
      * get the board data
      */
-    public getBoard = (): Array<Array<PieceParams>> => this.board.getBoard()
+    public getBoardData = (): Array<Array<PieceParams>> => this.board.getBoard()
 
     /**
      * 
      * @param board new board data
      */
-    public setBoard = (board: Array<Array<PieceParams>>) => this.board.setBoard(board)
+    public setBoardData = (board: Array<Array<PieceParams>>) => this.board.setBoard(board)
 
     /**
      * 
@@ -122,8 +132,7 @@ export default class Game {
     public addPlayer = (player: HumanPlayer): void => {
         try{
             if(this.players.length>=2) return 
-            if(player.getPlayerSide() === PlayerSide.WHITE) this.players[1] = player
-            else if(player.getPlayerSide() === PlayerSide.BLACK) this.players[0] = player
+            this.players.push(player)
         } catch (e){
             console.log(e)
             return e
@@ -153,9 +162,9 @@ export default class Game {
      * this function will give chance to the white player if no one has the chance or chnage the chance
      */
     public changeGameChance = () => {
-        if(!this.gameChance) this.gameChance = "WHITE"
-        if(this.gameChance && this.gameChance === "WHITE") this.gameChance = "BLACK"
-        else if(this.gameChance && this.gameChance === "BLACK") this.gameChance = "WHITE"
+        if(!this.gameChance) this.gameChance = "white"
+        if(this.gameChance && this.gameChance === "white") this.gameChance = "dark"
+        else if(this.gameChance && this.gameChance === "dark") this.gameChance = "white"
     }
 
     /**
@@ -183,7 +192,7 @@ export default class Game {
         this.setGameId(gameId)
         this.setGameName(gameName)
         this.setChance(gameChance)
-        this.setBoard(boardData)
+        this.setBoardData(boardData)
         return this
     }
 
@@ -202,7 +211,7 @@ export default class Game {
             gameChance: this.gameChance,
             players: playersDocs,
             spectators: spectatorDocs,
-            boardData: this.board.getBoard()
+            boardData: this.getBoardData()
         }
     }
 

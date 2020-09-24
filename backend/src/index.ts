@@ -36,6 +36,7 @@ app.io.on('connection', (socket)=>{
 				console.log("1. gameParams and join")
 				game.setGame(gameParams)
 				game.addSpectator(user)
+				// console.log(game.getGame())
 				let updateGame = await db.updateGame(game.getGame())
 				if(!updateGame) throw { status: false, data: "There was some error!" }
 				app.io.to(game.getGameId()).emit('updateState', game.getGame())
@@ -79,12 +80,16 @@ app.io.on('connection', (socket)=>{
 			else if(players.length === 1) {
 				user.setPlayerSide(players[0].getPlayerSide()?PlayerSide.WHITE:PlayerSide.BLACK)
 				game.startGame()
+				// console.log("--------------------------------------------------------------------")
+				// console.log(game.getBoard().getProbableDestinations())
+				// console.log("--------------------------------------------------------------------")
 			}
 			game.addPlayer(user)
 			let updateRoomData = db.updateGame(game.getGame())
 			if(!updateRoomData) throw { data: "Was not able to update game data in database!" }
-            app.io.to(game.getGameId()).emit('updateFrontendRoomData', { game: game.getGame() })
-            response["data"] = { game: game.getGame() }
+			socket.join(game.getGameId());
+            app.io.to(game.getGameId()).emit('updateFrontendRoomData', { game: game.getGame(), player: user.getPlayer(), probableDestinations: game.getBoard().getProbableDestinations() })
+            response["data"] = { game: game.getGame(), player: user.getPlayer(), probableDestinations: game.getBoard().getProbableDestinations() }
             callback(response)
         } catch(err) {
             response["status"] = false
