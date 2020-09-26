@@ -88,8 +88,8 @@ app.io.on('connection', (socket)=>{
 			let updateRoomData = db.updateGame(game.getGame())
 			if(!updateRoomData) throw { data: "Was not able to update game data in database!" }
 			socket.join(game.getGameId());
-            app.io.to(game.getGameId()).emit('updateFrontendRoomData', { game: game.getGame(), player: user.getPlayer(), probableDestinations: game.getBoard().getProbableDestinations() })
-            response["data"] = { game: game.getGame(), player: user.getPlayer(), probableDestinations: game.getBoard().getProbableDestinations() }
+            app.io.to(game.getGameId()).emit('updateFrontendRoomData', { game: game.getGame(), player: user.getPlayer(), allProbableDestinations: game.getBoard().getProbableDestinations() })
+            response["data"] = { game: game.getGame(), player: user.getPlayer(), allProbableDestinations: game.getBoard().getProbableDestinations() }
             callback(response)
         } catch(err) {
             response["status"] = false
@@ -98,7 +98,37 @@ app.io.on('connection', (socket)=>{
             callback(response)
         }
     });
-    
+	
+	socket.on('updateRoomData', async (gameId, from, destinationChosen, callback)=>{
+		let game: Game; let response = {status: true, data: {}};
+		try {
+			const { i: fromI, j: fromJ } = from
+			const { x: toI, y: toJ, enemyCell:isEnemy } = destinationChosen
+			const gameParams = await db.findGameUsingId(gameId)
+			console.log("--------------------gameParams---------------------")
+			console.log(gameParams)
+			console.log("--------------------start point----------------------")
+			console.log("i= ",fromI, "j= ",fromJ)
+			console.log("-----------------destinationChosen-----------------")
+			console.log(destinationChosen)
+			if(!gameParams) throw { status: false, data: "Room was not found in the database." }
+			game = new Game(gameParams.gameName) // create a game using game params
+			game.setGame(gameParams)
+			game = game.movePiece({ fromI, fromJ }, { toI, toJ }) // do the move 
+			game.changeGameChance() // set next players turn
+			// save the update in db
+			await db.updateGame(game.getGame())
+			// update the players in this room
+            app.io.to(game.getGameId()).emit('updateFrontendRoomData', { game: game.getGame(), allProbableDestinations: game.getBoard().getProbableDestinations() })
+			callback(gameParams)
+		} catch(err) {
+            response["status"] = false
+            console.log(err)
+            response["data"] = err["data"] || "There was some kind of error."
+            callback(response)
+        }
+    })
+
 	socket.on('disconnect', ()=>{
 		console.log("Someone disconnected from the room");
 	});

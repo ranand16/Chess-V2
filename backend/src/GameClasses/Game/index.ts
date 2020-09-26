@@ -9,7 +9,6 @@ import GameParams from "./game.interface"
 import PlayerParams from "../Player/player.interface"
 import Board from "../Board"
 import PieceParams from "../Piece/pieceparams.interface"
-import { PlayerSide } from "../Enums/PlayerSide"
 
 export default class Game {
     private gameName: String
@@ -213,6 +212,13 @@ export default class Game {
             spectators: spectatorDocs,
             boardData: this.getBoardData()
         }
+    }
+
+    public movePiece = (from, to): Game => {
+        const { fromI, fromJ } = from
+        const { toI, toJ } = to
+        this.board.movePiece({ fromI, fromJ },{ toI, toJ })
+        return this
     }
 
     /**

@@ -88,4 +88,12 @@ export default class Board {
         })
         return probableDestinations
     }
+
+    public movePiece = (from, to): Board => {
+        const { fromI, fromJ } = from
+        const { toI, toJ } = to
+        this.boardData[toI][toJ] = this.boardData[fromI][fromJ]
+        this.boardData[fromI][fromJ] = new Spot(fromI, fromJ)
+        return this
+    }
 }
