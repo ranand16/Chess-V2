@@ -14,7 +14,8 @@ import Spot from "../../Spot";
     }
 
     public calculateMovePositions = (board: Board, spot: Spot, playerSide: PlayerSide): Array<Object> => {
-        let hightlightArray: Array<Object>
+        let hightlightArray: Array<Object> = []
+        console.log("This is queen of ", playerSide)
         return hightlightArray
     }
  }

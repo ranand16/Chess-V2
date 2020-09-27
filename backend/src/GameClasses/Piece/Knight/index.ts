@@ -14,7 +14,8 @@ export default class Knight extends Piece {
     }
 
     public calculateMovePositions = (board: Board, spot: Spot, playerSide: PlayerSide): Array<Object> => {
-        let hightlightArray: Array<Object>
+        let hightlightArray: Array<Object> = []
+        console.log("This is knight of ", playerSide)
         return hightlightArray
     }
 }

@@ -1,5 +1,3 @@
-import { PieceType } from "../Enums/PieceType";
-import { PlayerSide } from "../Enums/PlayerSide";
 import Piece from "../Piece";
 
 /**

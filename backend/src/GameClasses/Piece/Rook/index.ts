@@ -14,7 +14,8 @@ export default class Rook extends Piece {
     }
 
     public calculateMovePositions = (board: Board, spot: Spot, playerSide: PlayerSide): Array<Object> => {
-        let hightlightArray: Array<Object>
+        let hightlightArray: Array<Object> = []
+        console.log("This is rook of ", playerSide)
         return hightlightArray
     }
 }
