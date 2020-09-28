@@ -22,49 +22,29 @@ export default class King extends Piece{
         let hightlightArray: Array<Object> = []
         const index = spot.getX()
         const jindex = spot.getY()
-        if(index+1<=7 && !(boardData[index+1][jindex].isAvailable)) { 
-            hightlightArray.push({ x:index+1, y:jindex, enemyCell: false }) 
-        } else if(index+1<=7 && boardData[index+1][jindex].isAvailable && playerSide !== (boardData[index+1][jindex]).pieceColor) { 
-            hightlightArray.push({ x:index+1, y:jindex, enemyCell: true }) 
-        }
-        console.log("king 1st pass")
-        if(index-1>=0 && !(boardData[index-1][jindex].isAvailable)) { 
-            hightlightArray.push({ x:index-1, y:jindex, enemyCell: false }) 
-        } else if(index-1>=0 && (boardData[index-1][jindex]).isAvailable && playerSide!==(boardData[index-1][jindex]).pieceColor) { 
-            hightlightArray.push({ x:index-1, y:jindex, enemyCell: true }) 
-        }
-        console.log("king 2nd pass")
-        if(jindex+1<=7 && !(boardData[index][jindex+1].isAvailable)) { 
-            hightlightArray.push({ x:index, y:jindex+1, enemyCell: false }) 
-        } else if(jindex+1<=7 && (boardData[index][jindex+1].isAvailable) && playerSide!==(boardData[index][jindex+1]).pieceColor) { 
-            hightlightArray.push({ x:index, y:jindex+1, enemyCell: true }) 
-        }
-        console.log("king 3rd pass")
+        if(index+1<=7 && !(boardData[index+1][jindex].isAvailable)) { hightlightArray.push({ x:index+1, y:jindex, enemyCell: false }) } else if(index+1<=7 && boardData[index+1][jindex].isAvailable && playerSide !== (boardData[index+1][jindex]).pieceColor) { hightlightArray.push({ x:index+1, y:jindex, enemyCell: true }) }
+        if(index-1>=0 && !(boardData[index-1][jindex].isAvailable)) { hightlightArray.push({ x:index-1, y:jindex, enemyCell: false }) } else if(index-1>=0 && (boardData[index-1][jindex]).isAvailable && playerSide!==(boardData[index-1][jindex]).pieceColor) { hightlightArray.push({ x:index-1, y:jindex, enemyCell: true }) }
+        if(jindex+1<=7 && !(boardData[index][jindex+1].isAvailable)) { hightlightArray.push({ x:index, y:jindex+1, enemyCell: false }) } else if(jindex+1<=7 && (boardData[index][jindex+1].isAvailable) && playerSide!==(boardData[index][jindex+1]).pieceColor) { hightlightArray.push({ x:index, y:jindex+1, enemyCell: true }) }
         if(jindex-1>=0 && !(boardData[index][jindex-1].isAvailable)) { 
             hightlightArray.push({ x:index, y:jindex-1, enemyCell: false }) 
         } else if(jindex-1>=0 && (boardData[index][jindex-1].isAvailable) && playerSide!==(boardData[index][jindex-1]).pieceColor) { 
             hightlightArray.push({ x:index, y:jindex-1, enemyCell: true }) 
         }
-        console.log("king 4th pass")
-        console.log(boardData, index, jindex)
         if(index+1<=7 && jindex+1<=7 && !(boardData[index+1][jindex+1].isAvailable)) { 
             hightlightArray.push({ x:index+1, y:jindex+1, enemyCell: false }) 
         } else if(index+1<=7 && jindex+1<=7 && boardData[index+1][jindex+1].isAvailable && playerSide!==(boardData[index+1][jindex+1]).pieceColor) { 
             hightlightArray.push({ x:index+1, y:jindex+1, enemyCell: true }) 
         }
-        console.log("king 5th pass")
         if(index+1<=7 && jindex-1>=0 && !(boardData[index+1][jindex-1].isAvailable)) { 
             hightlightArray.push({ x:index+1, y:jindex-1, enemyCell: false }) 
         } else if(index+1<=7 && jindex-1>=0 && boardData[index+1][jindex-1].isAvailable && playerSide!==(boardData[index+1][jindex-1]).pieceColor) { 
             hightlightArray.push({ x:index+1, y:jindex-1, enemyCell: true }) 
         }
-        console.log("king 6th pass")
         if(index-1>=0 && jindex+1<=7 && !(boardData[index-1][jindex+1]).isAvailable) { 
             hightlightArray.push({ x:index-1, y:jindex+1, enemyCell: false }) 
         } else if(index-1>=0 && jindex+1<=7 && boardData[index-1][jindex+1].isAvailable && playerSide!==(boardData[index-1][jindex+1]).pieceColor) { 
             hightlightArray.push({ x:index-1, y:jindex+1, enemyCell: true }) 
         }
-        console.log("king 7th pass")
         if(index-1>=0 && jindex-1>=0 && !(boardData[index-1][jindex-1].isAvailable)) { 
             hightlightArray.push({ x:index-1, y:jindex-1, enemyCell: false }) 
         } else if(index-1>=0 && jindex-1>=0 && boardData[index-1][jindex-1].isAvailable && playerSide!==(boardData[index-1][jindex-1]).pieceColor) { 
